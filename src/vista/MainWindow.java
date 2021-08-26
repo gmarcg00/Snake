@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controlador.ControladorJuego;
+import controlador.ControladorMenu;
 import modelo.Tablero;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -74,7 +74,7 @@ public class MainWindow extends JFrame {
 	}
 	
 	public void setControlador() {
-		ControladorJuego controlador=new ControladorJuego(this);
+		ControladorMenu controlador=new ControladorMenu(this);
 		controlador.setActionBoton();
 	}
 	

@@ -7,10 +7,9 @@ public class Manzana {
 	
 	public Manzana() {
 		this.isEated=false;
-		//this.setFila(generaNumeroAleatorio(0,14));
-		//this.setColumna(generaNumeroAleatorio(0,14));
-		this.setFila(11);
-		this.setColumna(11);
+		this.setFila(generaNumeroAleatorio(0,14));
+		this.setColumna(generaNumeroAleatorio(0,14));
+		
 	}
 	
 	public static int generaNumeroAleatorio(int minimo,int maximo){

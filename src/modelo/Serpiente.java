@@ -29,8 +29,6 @@ public class Serpiente {
 		this.snake.add(cabeza2);
 		
 		
-		this.setFilaCabeza(10);
-		this.setColumnaCabeza(11);
 	}
 	
 	public static int generaNumeroAleatorio(int minimo,int maximo){

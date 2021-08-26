@@ -14,18 +14,11 @@ public class Tablero {
 		
 		nuevoTablero();
 		imprimeTablero();
-		moverse("Abajo");
+		//moverse("Derecha");
 		System.out.println();
 		System.out.println();
 		imprimeTablero();
-		moverse("Abajo");
-		System.out.println();
-		System.out.println();
-		imprimeTablero();
-		moverse("Abajo");
-		System.out.println();
-		System.out.println();
-		imprimeTablero();
+		
 		
 
 	}
@@ -43,7 +36,10 @@ public class Tablero {
 		int [] cabeza2= serpiente.getSnake().get(1);
 		
 		tablero[cabeza[0]][cabeza[1]].setDireccion("S");
+		tablero[cabeza[0]][cabeza[1]].setHead(false);
 		tablero[cabeza2[0]][cabeza2[1]].setDireccion("S");
+		tablero[cabeza2[0]][cabeza2[1]].setHead(true);;
+		
 		
 		/*if(SerpienteValida()) {
 			tablero[serpiente.getFilaCabeza()][serpiente.getColumnaCabeza()]=new Casilla("S",true,false,false);
@@ -52,21 +48,30 @@ public class Tablero {
 		
 	}
 	
-	public void moverse(String dir) {
+	public boolean moverse(String dir) {
 		int tamSerpiente=serpiente.getSnake().size();
 		switch(dir) {
 		case "Derecha":
 			int [] head=serpiente.getSnake().get(tamSerpiente-1);
 			int [] newHeadD={head[0],head[1]+1};
 			int [] tail=serpiente.getSnake().get(0);
-			if(head[0]>14 || (head[1]+1)>14) {
-				System.out.println("Fuera del tablero");
+			if((head[0]>14 || (head[1]+1)>14) || tablero[head[0]][head[1]+1].getDireccion().equals("S")) {
+				System.out.println("Has perdido");
+				return false;
 			}else {
 				if(tablero[head[0]][head[1]+1].getDireccion().equals("X")) {
 					tablero[head[0]][head[1]+1].setDireccion("S");
+					tablero[head[0]][head[1]+1].setHead(true);
+					tablero[head[0]][head[1]].setHead(false);
 				}else {
 					tablero[head[0]][head[1]+1].setDireccion("S");
+					tablero[head[0]][head[1]+1].setHead(true);
+					
+					tablero[head[0]][head[1]].setDireccion("S");
+					tablero[head[0]][head[1]].setHead(false);
+					
 					tablero[tail[0]][tail[1]].setDireccion(".");
+					tablero[tail[0]][tail[1]].setHead(false);
 					serpiente.getSnake().remove(0);	
 				}
 				serpiente.getSnake().add(newHeadD);
@@ -77,14 +82,23 @@ public class Tablero {
 			head=serpiente.getSnake().get(tamSerpiente-1);
 			int [] newHeadI={head[0],head[1]-1};
 			tail=serpiente.getSnake().get(0);
-			if(head[0]>14 || (head[1]-1)<0) {
+			if((head[0]>14 || (head[1]-1)<0) || tablero[head[0]][head[1]-1].getDireccion().equals("S")) {
 				System.out.println("Fuera del tablero");
+				return false;
 			}else {
 				if(tablero[head[0]][head[1]-1].getDireccion().equals("X")) {
 					tablero[head[0]][head[1]-1].setDireccion("S");
+					tablero[head[0]][head[1]-1].setHead(true);
+					tablero[head[0]][head[1]].setHead(false);
 				}else {
 					tablero[head[0]][head[1]-1].setDireccion("S");
+					tablero[head[0]][head[1]-1].setHead(true);
+					
+					tablero[head[0]][head[1]].setDireccion("S");
+					tablero[head[0]][head[1]].setHead(false);
+					
 					tablero[tail[0]][tail[1]].setDireccion(".");
+					tablero[tail[0]][tail[1]].setHead(false);
 					serpiente.getSnake().remove(0);	
 				}
 				serpiente.getSnake().add(newHeadI);
@@ -95,14 +109,25 @@ public class Tablero {
 			head=serpiente.getSnake().get(tamSerpiente-1);
 			int [] newHeadAB={head[0]-1,head[1]};
 			tail=serpiente.getSnake().get(0);
-			if((head[0]-1)<0 || head[1]>14) {
+			if(((head[0]-1)<0 || head[1]>14) || tablero[head[0]-1][head[1]].getDireccion().equals("S")) {
 				System.out.println("Fuera del tablero");
+				return false;
 			}else {
 				if(tablero[head[0]-1][head[1]].getDireccion().equals("X")) {
 					tablero[head[0]-1][head[1]].setDireccion("S");
+					tablero[head[0]-1][head[1]].setHead(true);
+					tablero[head[0]][head[1]].setHead(false);
+					
 				}else {
 					tablero[head[0]-1][head[1]].setDireccion("S");
+					tablero[head[0]-1][head[1]].setHead(true);
+					
+					tablero[head[0]][head[1]].setDireccion("S");
+					tablero[head[0]][head[1]].setHead(false);
+					
 					tablero[tail[0]][tail[1]].setDireccion(".");
+					tablero[tail[0]][tail[1]].setHead(false);
+					
 					serpiente.getSnake().remove(0);	
 				}
 				serpiente.getSnake().add(newHeadAB);
@@ -114,20 +139,31 @@ public class Tablero {
 			head=serpiente.getSnake().get(tamSerpiente-1);
 			int [] newHeadA={head[0]+1,head[1]};
 			tail=serpiente.getSnake().get(0);
-			if((head[0]+1)>14) {
+			if((head[0]+1)>14 || tablero[head[0]+1][head[1]].getDireccion().equals("S")) {
 				System.out.println("Fuera del tablero");
+				return false;
 			}else {
 				if(tablero[head[0]+1][head[1]].getDireccion().equals("X")) {
 					tablero[head[0]+1][head[1]].setDireccion("S");
+					tablero[head[0]+1][head[1]].setHead(true);
+					tablero[head[0]][head[1]].setHead(false);
 				}else {
 					tablero[head[0]+1][head[1]].setDireccion("S");
+					tablero[head[0]+1][head[1]].setHead(true);
+					
+					tablero[head[0]][head[1]].setDireccion("S");
+					tablero[head[0]][head[1]].setHead(false);
+					
 					tablero[tail[0]][tail[1]].setDireccion(".");
+					tablero[tail[0]][tail[1]].setHead(false);
+					
 					serpiente.getSnake().remove(0);	
 				}
 				serpiente.getSnake().add(newHeadA);
 			}
 			break;
 		}
+		return true;
 	}
 	
 	public boolean existeManzana() {
@@ -174,6 +210,10 @@ public class Tablero {
 
 	public void setDimTablero(int dimTablero) {
 		this.dimTablero = dimTablero;
+	}
+	
+	public Casilla getCelda(int i, int j) {
+		return tablero[i][j];
 	}
 	
 	
