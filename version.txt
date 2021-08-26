@@ -1,3 +1,3 @@
-La serpiente se mueve apretando las teclas
-Se muestra la ventana de Game Over al salirse del tablero o cruzarse
-Identificada la cabeza de la serpiente (azul)
+Control por teclas funcionando
+Falta bloquear direccion contraria al movimiento
+Al presionar ESC se pausa el juego ( hilo.suspend() no recomendable)
