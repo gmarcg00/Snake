@@ -12,6 +12,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
 import controlador.ControladorJuego;
+import modelo.Movimiento;
 import modelo.Tablero;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -35,10 +36,18 @@ public class BoardPanel extends JFrame {
 		panel.setBounds(0, 0, 786, 495);
 		getContentPane().add(panel);
 		panel.setLayout(new GridLayout(modeloTablero.getDimTablero(),modeloTablero.getDimTablero()));
-		ControladorJuego control=new ControladorJuego(this,modeloTablero);
+		
+		Thread hilo;
+		Movimiento moverDerecha=new Movimiento(modeloTablero,this);
+		hilo=new Thread(moverDerecha);
+		
+		ControladorJuego control=new ControladorJuego(this,modeloTablero,hilo);
 		inicializar();
 		repaint();
 		control.setKeyListener();
+		
+		
+		hilo.start();
 		
 		
 		

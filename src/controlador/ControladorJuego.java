@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import modelo.Movimiento;
 import modelo.Tablero;
 import vista.BoardPanel;
 import vista.Casilla;
@@ -16,10 +17,12 @@ public class ControladorJuego implements KeyListener{
 	private BoardPanel vista;
 	private Tablero modeloTablero;
 	private Casilla [][] tablero;
+	private Thread hiloMovimiento;
 
-	public ControladorJuego(BoardPanel vista,Tablero modeloTablero) {
+	public ControladorJuego(BoardPanel vista,Tablero modeloTablero, Thread hilo) {
 		this.vista=vista;
 		this.modeloTablero=modeloTablero;
+		this.hiloMovimiento=hilo;
 	}
 	
 	public void setKeyListener() {
@@ -34,53 +37,26 @@ public class ControladorJuego implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getKeyCode()==39) {
-			if(modeloTablero.moverse("Derecha")) {
-				if(!modeloTablero.existeManzana()) {
-					modeloTablero.nuevaManzana();
-				}
-				vista.repaint();
-			}else {
-				VentanaGameOver ventana=new VentanaGameOver();
-				ventana.setVisible(true);
-			}
-			
+		switch(arg0.getKeyCode()){
+			case 37:
+				modeloTablero.setDireccion("Izquierda");
+				break;
+			case 38:
+				modeloTablero.setDireccion("Arriba");
+				break;
+				
+			case 39:
+				modeloTablero.setDireccion("Derecha");
+				break;
+			case 40:
+				modeloTablero.setDireccion("Abajo");
+				break;
+			case 27:
+				//SUSPEND NO RECOMENDADO
+				hiloMovimiento.suspend();
+				//VENTANA PAUSA
+				break;
 		}
-		if(arg0.getKeyCode()==37) {
-			if(modeloTablero.moverse("Izquierda")) {
-				if(!modeloTablero.existeManzana()) {
-					modeloTablero.nuevaManzana();
-				}
-				vista.repaint();
-			}else {
-				VentanaGameOver ventana=new VentanaGameOver();
-				ventana.setVisible(true);
-			}
-		}
-		if(arg0.getKeyCode()==38) {
-			if(modeloTablero.moverse("Arriba")) {
-				if(!modeloTablero.existeManzana()) {
-					modeloTablero.nuevaManzana();
-				}
-				vista.repaint();
-			}else {
-				VentanaGameOver ventana=new VentanaGameOver();
-				ventana.setVisible(true);
-			}
-			
-		}
-		if(arg0.getKeyCode()==40) {
-			if(modeloTablero.moverse("Abajo")) {
-				if(!modeloTablero.existeManzana()) {
-					modeloTablero.nuevaManzana();
-				}
-				vista.repaint();
-			}else {
-				VentanaGameOver ventana=new VentanaGameOver();
-				ventana.setVisible(true);
-			}
-		}
-		
 	}
 
 	@Override

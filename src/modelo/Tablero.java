@@ -6,6 +6,7 @@ public class Tablero {
 	private int dimTablero=15;
 	private Manzana manzana;
 	private Serpiente serpiente;
+	private String direccion="Derecha";
 	
 	public Tablero() {
 		tablero=new Casilla[dimTablero][dimTablero];
@@ -48,9 +49,9 @@ public class Tablero {
 		
 	}
 	
-	public boolean moverse(String dir) {
+	public boolean moverse() {
 		int tamSerpiente=serpiente.getSnake().size();
-		switch(dir) {
+		switch(direccion) {
 		case "Derecha":
 			int [] head=serpiente.getSnake().get(tamSerpiente-1);
 			int [] newHeadD={head[0],head[1]+1};
@@ -227,6 +228,14 @@ public class Tablero {
 			System.out.println();
 		}
 		
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
 
